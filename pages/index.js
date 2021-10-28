@@ -27,11 +27,9 @@ export async function getServerSideProps(context) {
 
   // Filter all the objects that doesn't have the request.type
   // After that, you take that only registar and take the url
-  const url = request.filter(request => request.type !== type)[0]?.url
+  const url = requests.filter((request) => request.type !== type)[0]?.url;
 
-  const request = await fetch(
-    `https://api.themoviedb.org/3/${url}`
-  )
+  const request = await fetch(`https://api.themoviedb.org/3/${url}`)
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
@@ -39,7 +37,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      results: request.results,
+      results: requests.results || null,
     },
   };
 }

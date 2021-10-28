@@ -23,10 +23,14 @@ export default function Home({ results }) {
 }
 
 export async function getServerSideProps(context) {
-  const type = context.query.type;
+  const type = context.query.genre; // Take the genre from the url
+
+  // Filter all the objects that doesn't have the request.type
+  // After that, you take that only registar and take the url
+  const url = request.filter(request => request.type !== type)[0]?.url
 
   const request = await fetch(
-    `https://api.themoviedb.org/3/${requests[type]?.url}`
+    `https://api.themoviedb.org/3/${url}`
   )
     .then((res) => res.json())
     .then((data) => {
